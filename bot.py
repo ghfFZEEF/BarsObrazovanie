@@ -97,8 +97,10 @@ class TgBot(TeleBot):
         else:
             self.send_message(message.chat.id, 'Я не знаю такой команды(')
 
-    def __photo(self, message: types.Message) -> None:
-        self.reply_to(message, 'Отличное фото')
+    def __spam(self, message: types.Message) -> None:
+        self.reply_to(message, 'Пожалуйста не отправляете в этот чат личные данные. \n'
+                               'Если вам негде хранить их, можете воспользоваться встроенной функцией телеграмма: \n'
+                               f'https://t.me/{message.chat.username}')
 
     def run(self) -> None:
         self.register_message_handler(self.__start, commands=["start"])
@@ -106,8 +108,9 @@ class TgBot(TeleBot):
         self.register_message_handler(self.__delete_account, commands=["del_acc"])
         self.register_message_handler(self.__admin, commands=["admin"])
 
+        content_types = ["audio", "document", "photo", "sticker", "video", "video_note", "voice", "location", "contact"]
         self.register_message_handler(self.__all_messages, content_types=['text'])
-        self.register_message_handler(self.__photo, content_types=['photo'])
+        self.register_message_handler(self.__spam, content_types=content_types)
 
         # self.polling(none_stop=True, interval=0)
         self.infinity_polling()
