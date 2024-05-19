@@ -11,9 +11,25 @@ from typing import Union
 
 class TgBot(TeleBot):
     def __init__(self, token: str) -> None:
+        """
+        Метод init служит для инициализации объекта.
+        Он принимает параметр token и передает его в родительский класс через super().init(token).
+
+        :param str token: Строка, содержащая токен.
+        :return: None
+        """
         super().__init__(token)
 
     def __start(self, message: types.Message) -> None:
+        """
+        Метод `__start` отвечает за обработку входящего сообщения от пользователя.
+        Он получает имя пользователя, отправляет приветственное сообщение,
+        проверяет наличие пользователя в базе данных и предлагает пройти регистрацию, если пользователь не найден,
+        или использовать функции бота, если пользователь уже зарегистрирован.
+
+        :param message: Объект типа `types.Message`, содержащий информацию о сообщении пользователя.
+        :return: None
+        """
         user_name: str = message.from_user.first_name
         self.send_message(message.chat.id, f'Доброго времени суток, <b>{user_name}</b>', parse_mode='html')
         db = connect('data/users.db')
@@ -33,6 +49,14 @@ class TgBot(TeleBot):
                               reply_markup=self.__markup_reg())
 
     def __help(self, message: types.Message) -> None:
+        """
+        Метод `__help` отвечает за обработку команды помощи от пользователя.
+        Если пользователь зарегистрирован, он отправляет сообщение с информацией о команде "Помощь" и возможностью похвалить бота.
+        Если пользователь не зарегистрирован, он предлагает пройти регистрацию и снова отправляет информацию о команде "Помощь".
+
+        :param message: Объект типа `types.Message`, содержащий информацию о сообщении пользователя.
+        :return: None
+        """
         if self.__check_reg(message.chat.id):
             self.send_message(message.chat.id, 'Если вам понадобится помощь, воспользуйтесь командой "Помощь"',
                               reply_markup=self.__markup_all())
@@ -44,6 +68,12 @@ class TgBot(TeleBot):
                               reply_markup=self.__markup_reg())
 
     def __all_messages(self, message: types.Message) -> None:
+        """
+        Обработка всех возможных сообщений от пользователя.
+
+        :param types.Message message: сообщение от пользователя.
+        :return: None
+        """
         if message.text == 'Начать регистрацию':
             self.send_message(message.chat.id, 'Введите ваш пароль от БАРС', reply_markup=types.ReplyKeyboardRemove())
             self.register_next_step_handler(message, self.__reg_pas)
@@ -98,11 +128,23 @@ class TgBot(TeleBot):
             self.send_message(message.chat.id, 'Я не знаю такой команды(')
 
     def __spam(self, message: types.Message) -> None:
+        """
+        Отвечает на сообщение пользователя, информируя его о том, что не следует отправлять личные данные в этот чат.
+
+        :param types.Message message: сообщение от пользователя.
+        :return: None
+        """
         self.reply_to(message, 'Пожалуйста не отправляете в этот чат личные данные. \n'
                                'Если вам негде хранить их, можете воспользоваться встроенной функцией телеграмма: \n'
                                f'https://t.me/{message.chat.username}')
 
     def run(self) -> None:
+        """
+        Запуск бота и регистрация обработчиков сообщений.
+
+        :param: None
+        :return: None
+        """
         self.register_message_handler(self.__start, commands=["start"])
         self.register_message_handler(self.__help, commands=["help"])
         self.register_message_handler(self.__delete_account, commands=["del_acc"])
@@ -116,10 +158,22 @@ class TgBot(TeleBot):
         self.infinity_polling()
 
     def __error(self, chat_id: int) -> None:
+        """
+        Отправляет сообщение об ошибке в чат с указанным ID и предлагает пользователю изменить неверные данные.
+
+        :param int chat_id: идентификатор чата, в который будет отправлено сообщение.
+        :return: None
+        """
         self.send_message(chat_id, 'Вы ввели некорректные данные, их придется изменить',
                           reply_markup=self.__markup_del())
 
     def __check_reg(self, chat_id: int) -> bool:
+        """
+        Проверяет регистрационные данные пользователя.
+
+        :param int chat_id: идентификатор чата, в котором происходит взаимодействие с пользователем.
+        :return: True, если пользователь успешно зарегистрирован, иначе False.
+        """
         session = self.__session(chat_id)
         if session is None:
             return False
@@ -133,13 +187,25 @@ class TgBot(TeleBot):
                 return True
 
     def __reg_pas(self, message: types.Message) -> None:
+        """
+        Обрабатывает сообщение от пользователя, содержащее пароль, и сохраняет его. Затем запрашивает у пользователя логин.
+
+        :param types.Message message: сообщение от пользователя, содержащее пароль.
+        :return: None
+        """
         password = message.text.strip()
         self.send_message(message.chat.id, 'Пароль успешно сохранен')
         self.send_message(message.chat.id, 'Введите ваш логин от БАРС')
         self.register_next_step_handler(message, self.__reg_log_db, password)
 
     def __reg_log_db(self, message: types.Message, password: str) -> None:
+        """
+        Обрабатывает сообщение от пользователя, содержащее логин, и сохраняет его в базе данных. Затем проверяет успешность регистрации и сообщает пользователю результат.
 
+        :param types.Message message: сообщение от пользователя, содержащее логин.
+        :param str password: пароль, сохраненный на предыдущем шаге регистрации.
+        :return: None
+        """
         login = message.text.strip()
         self.send_message(message.chat.id, 'Логин успешно сохранен')
         self.send_message(message.chat.id, 'Немного подождите, идет проверка')
@@ -158,6 +224,13 @@ class TgBot(TeleBot):
             self.__error(message.chat.id)
 
     def __sending_grades(self, person_data: dict, chat_id: int) -> None:
+        """
+        Отправляет оценки пользователя в чат.
+
+        :param dict person_data: словарь с данными пользователя, включая оценки.
+        :param int chat_id: идентификатор чата, в который будут отправлены оценки.
+        :return: None
+            """
         self.send_message(chat_id, 'Вот ваши оценки:')
         self.send_message(chat_id,
                           f"{person_data['indicators'][-1]['name']} --- {person_data['indicators'][-1]['value']}")
@@ -165,6 +238,12 @@ class TgBot(TeleBot):
             self.send_message(chat_id, f"{num}. {subject['name'][14:-1]}   ----   {subject['value']} ")
 
     def __grades(self, chat_id: int) -> None:
+        """
+        Получает и отправляет оценки пользователя в чат.
+
+        :param int chat_id: идентификатор чата, в который будут отправлены оценки.
+        :return: None
+        """
         session = self.__session(chat_id)
         if session is None:
             self.__error(chat_id)
@@ -181,6 +260,13 @@ class TgBot(TeleBot):
                 self.__sending_grades(person_data, chat_id)
 
     def __sending_teachers(self, peds: dict, chat_id: int) -> None:
+        """
+        Отправляет список учителей в чат.
+
+        :param dict peds: словарь с данными о сотрудниках образовательного учреждения.
+        :param int chat_id: идентификатор чата, в который будут отправлены данные.
+        :return: None
+        """
         for num, employees in enumerate(peds['employees'], 1):
             if employees['group'] == 'Педагогический состав':
                 try:
@@ -191,6 +277,12 @@ class TgBot(TeleBot):
         self.send_message(chat_id, 'Это все ваши учителя)')
 
     def __teachers(self, chat_id: int) -> None:
+        """
+        Получает и отправляет список учителей в чат.
+
+        :param int chat_id: идентификатор чата, в который будут отправлены данные.
+        :return: None
+        """
         session = self.__session(chat_id)
         if session is None:
             self.__error(chat_id)
@@ -207,6 +299,14 @@ class TgBot(TeleBot):
                 self.__sending_teachers(peds, chat_id)
 
     def __sending_hw(self, chat_id: int, dz: dict, when: str) -> None:
+        """
+        Отправляет домашнее задание пользователю в чат.
+
+        :param int chat_id: идентификатор чата, в который будет отправлено сообщение.
+        :param dict dz: словарь с домашними заданиями.
+        :param str when: дата, для которой нужно получить домашнее задание.
+        :return: None
+        """
         for part in dz:
             if str(part['date']) == str(when):
                 if part['name'] == 'Воскресенье' or part['name'] == 'Суббота':
@@ -225,6 +325,13 @@ class TgBot(TeleBot):
                 break
 
     def __hw(self, message: types.Message, when: Union[date, str] = None) -> None:
+        """
+        Обрабатывает сообщение от пользователя с запросом на получение домашнего задания.
+
+        :param types.Message message: сообщение от пользователя, содержащее дату запроса.
+        :param Union[date, str] when: дата, для которой нужно получить домашнее задание. Если не указана, используется дата из сообщения.
+        :return: None
+        """
         session = self.__session(message.chat.id)
         if session is None:
             self.__error(message.chat.id)
@@ -243,6 +350,12 @@ class TgBot(TeleBot):
                 self.__sending_hw(message.chat.id, dz, when)
 
     def __admin(self, message: types.Message) -> None:
+        """
+        Обрабатывает сообщение от пользователя, если он является администратором.
+
+        :param types.Message message: сообщение от пользователя.
+        :return: None
+        """
         if message.chat.id == 1170348812:
             db = connect('data/users.db')
             cursor = db.cursor()
@@ -261,6 +374,12 @@ class TgBot(TeleBot):
 
     @staticmethod
     def __session(chat_id: int) -> Session():
+        """
+        Статический метод для получения сессии пользователя из базы данных.
+
+        :param int chat_id: идентификатор чата, для которого нужно получить сессию.
+        :return: объект `Session`, представляющий сессию пользователя.
+        """
         db = connect('data/users.db')
         cursor = db.cursor()
         cursor.execute("SELECT * FROM data WHERE user_id = ? ", (chat_id,))
@@ -289,6 +408,12 @@ class TgBot(TeleBot):
 
     @staticmethod
     def __delete_account(message: types.Message):
+        """
+        Статический метод для обработки запроса на удаление аккаунта пользователя.
+
+        :param types.Message message: сообщение от пользователя, содержащее запрос на удаление аккаунта.
+        :return: None
+        """
         db = connect('data/users.db')
         cursor = db.cursor()
         cursor.execute("DELETE FROM data WHERE user_id = ? ", (message.chat.id,))
@@ -298,6 +423,11 @@ class TgBot(TeleBot):
 
     @staticmethod
     def __markup_del() -> types.ReplyKeyboardMarkup:
+        """
+        Статический метод для создания клавиатуры с кнопками "Изменить аккаунт" и "Помощь".
+
+        :return: объект `ReplyKeyboardMarkup`, представляющий клавиатуру.
+        """
         m_del = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
         change_account = 'Изменить аккаунт'
         help_admin = 'Помощь'
@@ -306,6 +436,11 @@ class TgBot(TeleBot):
 
     @staticmethod
     def __markup_all() -> types.ReplyKeyboardMarkup:
+        """
+        Статический метод для создания полной клавиатуры с различными кнопками.
+
+        :return: объект `ReplyKeyboardMarkup`, представляющий полную клавиатуру.
+        """
         m_all = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
         grades = 'Оценки'
         homework = 'Домашнее задание'
@@ -318,6 +453,11 @@ class TgBot(TeleBot):
 
     @staticmethod
     def __markup_reg() -> types.ReplyKeyboardMarkup:
+        """
+        Статический метод для создания клавиатуры с кнопками "Начать регистрацию" и "Помощь".
+
+        :return: объект `ReplyKeyboardMarkup`, представляющий клавиатуру.
+        """
         m_reg = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
         reg = types.KeyboardButton('Начать регистрацию')
         help_admin = 'Помощь'
@@ -326,6 +466,11 @@ class TgBot(TeleBot):
 
     @staticmethod
     def __markup_day() -> types.ReplyKeyboardMarkup:
+        """
+        Статический метод для создания клавиатуры с кнопками для выбора домашнего задания на определенный день.
+
+        :return: объект `ReplyKeyboardMarkup`, представляющий клавиатуру.
+        """
         m_day = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
         today = types.KeyboardButton('Д/З на сегодня')
         tomorrow = types.KeyboardButton('Д/З на завтра')
@@ -335,5 +480,10 @@ class TgBot(TeleBot):
 
     @staticmethod
     def __markup_none() -> types.ReplyKeyboardMarkup:
+        """
+        Статический метод для создания пустой клавиатуры.
+
+        :return: объект `ReplyKeyboardMarkup`, представляющий пустую клавиатуру.
+        """
         m_day = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
         return m_day

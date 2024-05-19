@@ -1,1 +1,11 @@
-Figure it out for yourself. (maybe I'll add it later)
+Разберетесь сами. (Может потом доделаю)
+
+---
+
+Всю документацию писал GigaChat
+
+Промт:
+
+Напиши документацию в стиле reStructuredText кода написанного на языке программирования python:
+
+код
