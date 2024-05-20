@@ -1,5 +1,5 @@
 from telebot import TeleBot, types
-from sqlite3 import connect
+from sqlite3 import connect, Connection, Cursor
 from requests import Session
 from datetime import date, timedelta, datetime
 from fake_useragent import UserAgent
@@ -32,10 +32,10 @@ class TgBot(TeleBot):
         """
         user_name: str = message.from_user.first_name
         self.send_message(message.chat.id, f'Доброго времени суток, <b>{user_name}</b>', parse_mode='html')
-        db = connect('data/users.db')
-        cursor = db.cursor()
+        db: Connection = connect('data/users.db')
+        cursor: Cursor = db.cursor()
         cursor.execute("SELECT * FROM data WHERE user_id = ? ", (message.chat.id,))
-        data = cursor.fetchall()
+        data: list = cursor.fetchall()
         cursor.close()
         db.close()
         if len(data) != 0:
@@ -107,12 +107,12 @@ class TgBot(TeleBot):
                               reply_markup=self.__markup_reg())
 
         elif message.text == 'Моя учетная запись':
-            db = connect('data/users.db')
-            cursor = db.cursor()
+            db: Connection = connect('data/users.db')
+            cursor: Cursor = db.cursor()
             cursor.execute("SELECT pass FROM data WHERE user_id = ? ", (message.chat.id,))
-            pas = cursor.fetchone()[0]
+            pas: str = cursor.fetchone()[0]
             cursor.execute("SELECT login FROM data WHERE user_id = ? ", (message.chat.id,))
-            log = cursor.fetchone()[0]
+            log: str = cursor.fetchone()[0]
             cursor.close()
             db.close()
 
@@ -150,7 +150,8 @@ class TgBot(TeleBot):
         self.register_message_handler(self.__delete_account, commands=["del_acc"])
         self.register_message_handler(self.__admin, commands=["admin"])
 
-        content_types = ["audio", "document", "photo", "sticker", "video", "video_note", "voice", "location", "contact"]
+        content_types: list = ["audio", "document", "photo", "sticker",
+                               "video", "video_note", "voice", "location", "contact"]
         self.register_message_handler(self.__all_messages, content_types=['text'])
         self.register_message_handler(self.__spam, content_types=content_types)
 
@@ -174,12 +175,12 @@ class TgBot(TeleBot):
         :param int chat_id: идентификатор чата, в котором происходит взаимодействие с пользователем.
         :return: True, если пользователь успешно зарегистрирован, иначе False.
         """
-        session = self.__session(chat_id)
+        session: Session = self.__session(chat_id)
         if session is None:
             return False
         else:
-            person_data_link = f'https://sh-open.ris61edu.ru/api/ProfileService/GetPersonData'
-            person_data = session.get(person_data_link).json()
+            person_data_link: str = f'https://sh-open.ris61edu.ru/api/ProfileService/GetPersonData'
+            person_data: dict = session.get(person_data_link).json()
 
             if 'faultcode' in person_data:
                 return False
@@ -193,7 +194,7 @@ class TgBot(TeleBot):
         :param types.Message message: сообщение от пользователя, содержащее пароль.
         :return: None
         """
-        password = message.text.strip()
+        password: str = message.text.strip()
         self.send_message(message.chat.id, 'Пароль успешно сохранен')
         self.send_message(message.chat.id, 'Введите ваш логин от БАРС')
         self.register_next_step_handler(message, self.__reg_log_db, password)
@@ -206,12 +207,12 @@ class TgBot(TeleBot):
         :param str password: пароль, сохраненный на предыдущем шаге регистрации.
         :return: None
         """
-        login = message.text.strip()
+        login: str = message.text.strip()
         self.send_message(message.chat.id, 'Логин успешно сохранен')
         self.send_message(message.chat.id, 'Немного подождите, идет проверка')
 
-        db = connect('data/users.db')
-        cursor = db.cursor()
+        db: Connection = connect('data/users.db')
+        cursor: Cursor = db.cursor()
         cursor.execute(
             "INSERT INTO data (user_id, pass, login) VALUES ('%s', '%s', '%s')" % (message.chat.id, password, login))
         db.commit()
@@ -244,15 +245,15 @@ class TgBot(TeleBot):
         :param int chat_id: идентификатор чата, в который будут отправлены оценки.
         :return: None
         """
-        session = self.__session(chat_id)
+        session: Session = self.__session(chat_id)
         if session is None:
             self.__error(chat_id)
         else:
-            link = 'https://sh-open.ris61edu.ru/personal-area/#diary'
+            link: str = 'https://sh-open.ris61edu.ru/personal-area/#diary'
             session.post(link)
 
-            person_data_link = f'https://sh-open.ris61edu.ru/api/ProfileService/GetPersonData'
-            person_data = session.get(person_data_link).json()
+            person_data_link: str = f'https://sh-open.ris61edu.ru/api/ProfileService/GetPersonData'
+            person_data: dict = session.get(person_data_link).json()
 
             if 'faultcode' in person_data:
                 self.__error(chat_id)
@@ -270,9 +271,9 @@ class TgBot(TeleBot):
         for num, employees in enumerate(peds['employees'], 1):
             if employees['group'] == 'Педагогический состав':
                 try:
-                    teacher_taught_subject = str(employees['employer_jobs'][1])
+                    teacher_taught_subject: str = str(employees['employer_jobs'][1])
                 except IndexError:
-                    teacher_taught_subject = str(employees['employer_jobs'][0])
+                    teacher_taught_subject: str = str(employees['employer_jobs'][0])
                 self.send_message(chat_id, f"{num}. {employees['fullname']} - {teacher_taught_subject.lower()}")
         self.send_message(chat_id, 'Это все ваши учителя)')
 
@@ -283,15 +284,15 @@ class TgBot(TeleBot):
         :param int chat_id: идентификатор чата, в который будут отправлены данные.
         :return: None
         """
-        session = self.__session(chat_id)
+        session: Session = self.__session(chat_id)
         if session is None:
             self.__error(chat_id)
         else:
-            link = 'https://sh-open.ris61edu.ru/personal-area/#school'
+            link: str = 'https://sh-open.ris61edu.ru/personal-area/#school'
             session.post(link)
 
-            ped_link = 'https://sh-open.ris61edu.ru/api/SchoolService/getSchoolInfo'
-            peds = session.get(ped_link).json()
+            ped_link: str = 'https://sh-open.ris61edu.ru/api/SchoolService/getSchoolInfo'
+            peds: dict = session.get(ped_link).json()
 
             if 'faultcode' in peds:
                 self.__error(chat_id)
@@ -316,7 +317,7 @@ class TgBot(TeleBot):
                         self.send_message(chat_id, 'Вот ваше домашнее задание:', reply_markup=self.__markup_all())
                         for homework in part['homeworks']:
                             if homework['homework'] != '':
-                                hw = sub(r'<[\w\s]+>', '', homework['homework'])
+                                hw: str = sub(r'<[\w\s]+>', '', homework['homework'])
                                 self.send_message(chat_id, f"{homework['discipline']} --- {hw}")
                             else:
                                 self.send_message(chat_id, f"По {homework['discipline']} за {when} - ничего не задали")
@@ -332,18 +333,18 @@ class TgBot(TeleBot):
         :param Union[date, str] when: дата, для которой нужно получить домашнее задание. Если не указана, используется дата из сообщения.
         :return: None
         """
-        session = self.__session(message.chat.id)
+        session: Session = self.__session(message.chat.id)
         if session is None:
             self.__error(message.chat.id)
         else:
-            link = 'https://sh-open.ris61edu.ru/personal-area/#homework'
+            link: str = 'https://sh-open.ris61edu.ru/personal-area/#homework'
             session.post(link)
 
             if when is None:
-                when = message.text
+                when: str = message.text
 
-            sr_mark_link = f'https://sh-open.ris61edu.ru/api/HomeworkService/GetHomeworkFromRange?date={when}'
-            dz = session.get(sr_mark_link).json()
+            sr_mark_link: str = f'https://sh-open.ris61edu.ru/api/HomeworkService/GetHomeworkFromRange?date={when}'
+            dz: dict = session.get(sr_mark_link).json()
             if 'faultcode' in dz:
                 self.send_message(message.chat.id, 'Похоже вы ввели некорректную дату', reply_markup=self.__markup_all())
             else:
@@ -357,11 +358,11 @@ class TgBot(TeleBot):
         :return: None
         """
         if message.chat.id == 1170348812:
-            db = connect('data/users.db')
-            cursor = db.cursor()
+            db: Connection = connect('data/users.db')
+            cursor: Cursor = db.cursor()
             cursor.execute("SELECT * FROM data;")
             with open("secret.csv", 'w', newline='', encoding='UTF-8') as csv_file:
-                csv_writer = writer(csv_file)
+                csv_writer: writer = writer(csv_file)
                 csv_writer.writerow([i[0] for i in cursor.description])
                 csv_writer.writerows(cursor)
             cursor.close()
@@ -380,27 +381,27 @@ class TgBot(TeleBot):
         :param int chat_id: идентификатор чата, для которого нужно получить сессию.
         :return: объект `Session`, представляющий сессию пользователя.
         """
-        db = connect('data/users.db')
-        cursor = db.cursor()
+        db: Connection = connect('data/users.db')
+        cursor: Cursor = db.cursor()
         cursor.execute("SELECT * FROM data WHERE user_id = ? ", (chat_id,))
         if len(cursor.fetchall()) == 0:
             return None
         cursor.execute("SELECT pass FROM data WHERE user_id = ? ", (chat_id,))
-        pas = cursor.fetchone()[0]
+        pas: str = cursor.fetchone()[0]
         cursor.execute("SELECT login FROM data WHERE user_id = ? ", (chat_id,))
-        log = cursor.fetchone()[0]
+        log: str = cursor.fetchone()[0]
         cursor.close()
         db.close()
 
-        data = {
+        data: dict = {
             'login_login': log,
             'login_password': pas
         }
 
-        url = 'https://sh-open.ris61edu.ru/auth/login'
-        headers = {'User-Agent': UserAgent().safari}
+        url: str = 'https://sh-open.ris61edu.ru/auth/login'
+        headers: dict = {'User-Agent': UserAgent().safari}
 
-        session = Session()
+        session: Session = Session()
         session.headers.update(headers)
         session.post(url, data=data, headers=headers)
 
@@ -414,8 +415,8 @@ class TgBot(TeleBot):
         :param types.Message message: сообщение от пользователя, содержащее запрос на удаление аккаунта.
         :return: None
         """
-        db = connect('data/users.db')
-        cursor = db.cursor()
+        db: Connection = connect('data/users.db')
+        cursor: Cursor = db.cursor()
         cursor.execute("DELETE FROM data WHERE user_id = ? ", (message.chat.id,))
         db.commit()
         cursor.close()
@@ -428,9 +429,9 @@ class TgBot(TeleBot):
 
         :return: объект `ReplyKeyboardMarkup`, представляющий клавиатуру.
         """
-        m_del = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-        change_account = 'Изменить аккаунт'
-        help_admin = 'Помощь'
+        m_del: types.ReplyKeyboardMarkup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+        change_account: types.KeyboardButton = types.KeyboardButton('Изменить аккаунт')
+        help_admin: types.KeyboardButton = types.KeyboardButton('Помощь')
         m_del.add(change_account, help_admin)
         return m_del
 
@@ -441,13 +442,13 @@ class TgBot(TeleBot):
 
         :return: объект `ReplyKeyboardMarkup`, представляющий полную клавиатуру.
         """
-        m_all = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-        grades = 'Оценки'
-        homework = 'Домашнее задание'
-        teachers = 'Педагогический состав'
-        account = 'Моя учетная запись'
-        change_account = 'Изменить аккаунт'
-        help_admin = 'Помощь'
+        m_all: types.ReplyKeyboardMarkup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+        grades: types.KeyboardButton = types.KeyboardButton('Оценки')
+        homework: types.KeyboardButton = types.KeyboardButton('Домашнее задание')
+        teachers: types.KeyboardButton = types.KeyboardButton('Педагогический состав')
+        account: types.KeyboardButton = types.KeyboardButton('Моя учетная запись')
+        change_account: types.KeyboardButton = types.KeyboardButton('Изменить аккаунт')
+        help_admin: types.KeyboardButton = types.KeyboardButton('Помощь')
         m_all.add(grades, homework, teachers, account, change_account, help_admin)
         return m_all
 
@@ -458,9 +459,9 @@ class TgBot(TeleBot):
 
         :return: объект `ReplyKeyboardMarkup`, представляющий клавиатуру.
         """
-        m_reg = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-        reg = types.KeyboardButton('Начать регистрацию')
-        help_admin = 'Помощь'
+        m_reg: types.ReplyKeyboardMarkup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+        reg: types.KeyboardButton = types.KeyboardButton('Начать регистрацию')
+        help_admin: types.KeyboardButton = types.KeyboardButton('Помощь')
         m_reg.add(reg, help_admin)
         return m_reg
 
@@ -471,10 +472,10 @@ class TgBot(TeleBot):
 
         :return: объект `ReplyKeyboardMarkup`, представляющий клавиатуру.
         """
-        m_day = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-        today = types.KeyboardButton('Д/З на сегодня')
-        tomorrow = types.KeyboardButton('Д/З на завтра')
-        choose_your_date = types.KeyboardButton('Выбрать свою дату')
+        m_day: types.ReplyKeyboardMarkup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+        today: types.KeyboardButton = types.KeyboardButton('Д/З на сегодня')
+        tomorrow: types.KeyboardButton = types.KeyboardButton('Д/З на завтра')
+        choose_your_date: types.KeyboardButton = types.KeyboardButton('Выбрать свою дату')
         m_day.add(today, tomorrow, choose_your_date)
         return m_day
 
@@ -485,5 +486,5 @@ class TgBot(TeleBot):
 
         :return: объект `ReplyKeyboardMarkup`, представляющий пустую клавиатуру.
         """
-        m_day = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+        m_day: types.ReplyKeyboardMarkup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
         return m_day

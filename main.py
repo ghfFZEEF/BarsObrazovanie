@@ -1,5 +1,5 @@
 from bot import TgBot
-from sqlite3 import connect
+from sqlite3 import connect, Connection, Cursor
 
 
 def main() -> None:
@@ -13,8 +13,8 @@ def main() -> None:
     with open('token', 'r') as file:
         token: str = file.read()
 
-    db = connect('data/users.db')
-    cursor = db.cursor()
+    db: Connection = connect('data/users.db')
+    cursor: Cursor = db.cursor()
     cursor.execute("""CREATE TABLE IF NOT EXISTS data (
                     user_id varchar(50),
                     pass varchar(50),

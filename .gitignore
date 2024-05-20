@@ -1,4 +1,4 @@
 *token
 *.idea
 *__pycache__/
-*data
+*data/users.db
