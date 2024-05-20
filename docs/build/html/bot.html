@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Модуль бота &mdash; документация BarsObrazovanie 1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=9ca2116e"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=29b1f277"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="prev" title="Зпуск проекта" href="main.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            BarsObrazovanie
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" aria-label="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="main.html">Зпуск проекта</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Модуль бота</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bot.TgBot"><code class="docutils literal notranslate"><span class="pre">TgBot</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__admin"><code class="docutils literal notranslate"><span class="pre">TgBot.__admin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__all_messages"><code class="docutils literal notranslate"><span class="pre">TgBot.__all_messages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__check_reg"><code class="docutils literal notranslate"><span class="pre">TgBot.__check_reg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__delete_account"><code class="docutils literal notranslate"><span class="pre">TgBot.__delete_account()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__error"><code class="docutils literal notranslate"><span class="pre">TgBot.__error()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__grades"><code class="docutils literal notranslate"><span class="pre">TgBot.__grades()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__help"><code class="docutils literal notranslate"><span class="pre">TgBot.__help()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__hw"><code class="docutils literal notranslate"><span class="pre">TgBot.__hw()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__markup_all"><code class="docutils literal notranslate"><span class="pre">TgBot.__markup_all()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__markup_day"><code class="docutils literal notranslate"><span class="pre">TgBot.__markup_day()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__markup_del"><code class="docutils literal notranslate"><span class="pre">TgBot.__markup_del()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__markup_none"><code class="docutils literal notranslate"><span class="pre">TgBot.__markup_none()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__markup_reg"><code class="docutils literal notranslate"><span class="pre">TgBot.__markup_reg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__reg_log_db"><code class="docutils literal notranslate"><span class="pre">TgBot.__reg_log_db()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__reg_pas"><code class="docutils literal notranslate"><span class="pre">TgBot.__reg_pas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__sending_grades"><code class="docutils literal notranslate"><span class="pre">TgBot.__sending_grades()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__sending_hw"><code class="docutils literal notranslate"><span class="pre">TgBot.__sending_hw()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__sending_teachers"><code class="docutils literal notranslate"><span class="pre">TgBot.__sending_teachers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__session"><code class="docutils literal notranslate"><span class="pre">TgBot.__session()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__spam"><code class="docutils literal notranslate"><span class="pre">TgBot.__spam()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__start"><code class="docutils literal notranslate"><span class="pre">TgBot.__start()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.__teachers"><code class="docutils literal notranslate"><span class="pre">TgBot.__teachers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bot.TgBot.run"><code class="docutils literal notranslate"><span class="pre">TgBot.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BarsObrazovanie</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Модуль бота</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/bot.rst.txt" rel="nofollow"> Просмотреть исходный код страницы</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-bot">
+<span id="id1"></span><h1>Модуль бота<a class="headerlink" href="#module-bot" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="bot.TgBot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bot.</span></span><span class="sig-name descname"><span class="pre">TgBot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bot.TgBot" title="Link to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__admin">
+<span class="sig-name descname"><span class="pre">__admin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Message</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__admin" title="Link to this definition"></a></dt>
+<dd><p>Обрабатывает сообщение от пользователя, если он является администратором.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>types.Message</em>) – сообщение от пользователя.</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__all_messages">
+<span class="sig-name descname"><span class="pre">__all_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Message</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__all_messages" title="Link to this definition"></a></dt>
+<dd><p>Обработка всех возможных сообщений от пользователя.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>types.Message</em>) – сообщение от пользователя.</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__check_reg">
+<span class="sig-name descname"><span class="pre">__check_reg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bot.TgBot.__check_reg" title="Link to this definition"></a></dt>
+<dd><p>Проверяет регистрационные данные пользователя.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>chat_id</strong> (<em>int</em>) – идентификатор чата, в котором происходит взаимодействие с пользователем.</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, если пользователь успешно зарегистрирован, иначе False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__delete_account">
+<span class="sig-name descname"><span class="pre">__delete_account</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bot.TgBot.__delete_account" title="Link to this definition"></a></dt>
+<dd><p>Статический метод для обработки запроса на удаление аккаунта пользователя.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>types.Message</em>) – сообщение от пользователя, содержащее запрос на удаление аккаунта.</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__error">
+<span class="sig-name descname"><span class="pre">__error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__error" title="Link to this definition"></a></dt>
+<dd><p>Отправляет сообщение об ошибке в чат с указанным ID и предлагает пользователю изменить неверные данные.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>chat_id</strong> (<em>int</em>) – идентификатор чата, в который будет отправлено сообщение.</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__grades">
+<span class="sig-name descname"><span class="pre">__grades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__grades" title="Link to this definition"></a></dt>
+<dd><p>Получает и отправляет оценки пользователя в чат.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>chat_id</strong> (<em>int</em>) – идентификатор чата, в который будут отправлены оценки.</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__help">
+<span class="sig-name descname"><span class="pre">__help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Message</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__help" title="Link to this definition"></a></dt>
+<dd><p>Метод <cite>__help</cite> отвечает за обработку команды помощи от пользователя.
+Если пользователь зарегистрирован, он отправляет сообщение с информацией о команде «Помощь» и возможностью похвалить бота.
+Если пользователь не зарегистрирован, он предлагает пройти регистрацию и снова отправляет информацию о команде «Помощь».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> – Объект типа <cite>types.Message</cite>, содержащий информацию о сообщении пользователя.</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__hw">
+<span class="sig-name descname"><span class="pre">__hw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">when</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__hw" title="Link to this definition"></a></dt>
+<dd><p>Обрабатывает сообщение от пользователя с запросом на получение домашнего задания.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>types.Message</em>) – сообщение от пользователя, содержащее дату запроса.</p></li>
+<li><p><strong>when</strong> (<em>Union</em><em>[</em><em>date</em><em>, </em><em>str</em><em>]</em>) – дата, для которой нужно получить домашнее задание. Если не указана, используется дата из сообщения.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__markup_all">
+<span class="sig-name descname"><span class="pre">__markup_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ReplyKeyboardMarkup</span></span></span><a class="headerlink" href="#bot.TgBot.__markup_all" title="Link to this definition"></a></dt>
+<dd><p>Статический метод для создания полной клавиатуры с различными кнопками.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Результат<span class="colon">:</span></dt>
+<dd class="field-odd"><p>объект <cite>ReplyKeyboardMarkup</cite>, представляющий полную клавиатуру.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__markup_day">
+<span class="sig-name descname"><span class="pre">__markup_day</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ReplyKeyboardMarkup</span></span></span><a class="headerlink" href="#bot.TgBot.__markup_day" title="Link to this definition"></a></dt>
+<dd><p>Статический метод для создания клавиатуры с кнопками для выбора домашнего задания на определенный день.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Результат<span class="colon">:</span></dt>
+<dd class="field-odd"><p>объект <cite>ReplyKeyboardMarkup</cite>, представляющий клавиатуру.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__markup_del">
+<span class="sig-name descname"><span class="pre">__markup_del</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ReplyKeyboardMarkup</span></span></span><a class="headerlink" href="#bot.TgBot.__markup_del" title="Link to this definition"></a></dt>
+<dd><p>Статический метод для создания клавиатуры с кнопками «Изменить аккаунт» и «Помощь».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Результат<span class="colon">:</span></dt>
+<dd class="field-odd"><p>объект <cite>ReplyKeyboardMarkup</cite>, представляющий клавиатуру.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__markup_none">
+<span class="sig-name descname"><span class="pre">__markup_none</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ReplyKeyboardMarkup</span></span></span><a class="headerlink" href="#bot.TgBot.__markup_none" title="Link to this definition"></a></dt>
+<dd><p>Статический метод для создания пустой клавиатуры.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Результат<span class="colon">:</span></dt>
+<dd class="field-odd"><p>объект <cite>ReplyKeyboardMarkup</cite>, представляющий пустую клавиатуру.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__markup_reg">
+<span class="sig-name descname"><span class="pre">__markup_reg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ReplyKeyboardMarkup</span></span></span><a class="headerlink" href="#bot.TgBot.__markup_reg" title="Link to this definition"></a></dt>
+<dd><p>Статический метод для создания клавиатуры с кнопками «Начать регистрацию» и «Помощь».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Результат<span class="colon">:</span></dt>
+<dd class="field-odd"><p>объект <cite>ReplyKeyboardMarkup</cite>, представляющий клавиатуру.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__reg_log_db">
+<span class="sig-name descname"><span class="pre">__reg_log_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__reg_log_db" title="Link to this definition"></a></dt>
+<dd><p>Обрабатывает сообщение от пользователя, содержащее логин, и сохраняет его в базе данных. Затем проверяет успешность регистрации и сообщает пользователю результат.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>types.Message</em>) – сообщение от пользователя, содержащее логин.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – пароль, сохраненный на предыдущем шаге регистрации.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__reg_pas">
+<span class="sig-name descname"><span class="pre">__reg_pas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Message</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__reg_pas" title="Link to this definition"></a></dt>
+<dd><p>Обрабатывает сообщение от пользователя, содержащее пароль, и сохраняет его. Затем запрашивает у пользователя логин.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>types.Message</em>) – сообщение от пользователя, содержащее пароль.</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__sending_grades">
+<span class="sig-name descname"><span class="pre">__sending_grades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">person_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chat_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__sending_grades" title="Link to this definition"></a></dt>
+<dd><p>Отправляет оценки пользователя в чат.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>person_data</strong> (<em>dict</em>) – словарь с данными пользователя, включая оценки.</p></li>
+<li><p><strong>chat_id</strong> (<em>int</em>) – идентификатор чата, в который будут отправлены оценки.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__sending_hw">
+<span class="sig-name descname"><span class="pre">__sending_hw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">when</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__sending_hw" title="Link to this definition"></a></dt>
+<dd><p>Отправляет домашнее задание пользователю в чат.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chat_id</strong> (<em>int</em>) – идентификатор чата, в который будет отправлено сообщение.</p></li>
+<li><p><strong>dz</strong> (<em>dict</em>) – словарь с домашними заданиями.</p></li>
+<li><p><strong>when</strong> (<em>str</em>) – дата, для которой нужно получить домашнее задание.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__sending_teachers">
+<span class="sig-name descname"><span class="pre">__sending_teachers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chat_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__sending_teachers" title="Link to this definition"></a></dt>
+<dd><p>Отправляет список учителей в чат.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peds</strong> (<em>dict</em>) – словарь с данными о сотрудниках образовательного учреждения.</p></li>
+<li><p><strong>chat_id</strong> (<em>int</em>) – идентификатор чата, в который будут отправлены данные.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__session">
+<span class="sig-name descname"><span class="pre">__session</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;requests.sessions.Session</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x0000019B1F5A5210&gt;</span></span></span><a class="headerlink" href="#bot.TgBot.__session" title="Link to this definition"></a></dt>
+<dd><p>Статический метод для получения сессии пользователя из базы данных.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>chat_id</strong> (<em>int</em>) – идентификатор чата, для которого нужно получить сессию.</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>объект <cite>Session</cite>, представляющий сессию пользователя.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__spam">
+<span class="sig-name descname"><span class="pre">__spam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Message</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__spam" title="Link to this definition"></a></dt>
+<dd><p>Отвечает на сообщение пользователя, информируя его о том, что не следует отправлять личные данные в этот чат.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>types.Message</em>) – сообщение от пользователя.</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__start">
+<span class="sig-name descname"><span class="pre">__start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Message</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__start" title="Link to this definition"></a></dt>
+<dd><p>Метод <cite>__start</cite> отвечает за обработку входящего сообщения от пользователя.
+Он получает имя пользователя, отправляет приветственное сообщение,
+проверяет наличие пользователя в базе данных и предлагает пройти регистрацию, если пользователь не найден,
+или использовать функции бота, если пользователь уже зарегистрирован.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> – Объект типа <cite>types.Message</cite>, содержащий информацию о сообщении пользователя.</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.__teachers">
+<span class="sig-name descname"><span class="pre">__teachers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.__teachers" title="Link to this definition"></a></dt>
+<dd><p>Получает и отправляет список учителей в чат.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>chat_id</strong> (<em>int</em>) – идентификатор чата, в который будут отправлены данные.</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bot.TgBot.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bot.TgBot.run" title="Link to this definition"></a></dt>
+<dd><p>Запуск бота и регистрация обработчиков сообщений.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Нижняя область">
+        <a href="main.html" class="btn btn-neutral float-left" title="Зпуск проекта" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Авторские права 2024, I_or_not_I. </p>
+  </div>
+
+  Собрано при помощи <a href="https://www.sphinx-doc.org/">Sphinx</a> с использованием
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">темы,</a>
+    предоставленной <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
