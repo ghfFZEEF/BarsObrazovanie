@@ -1,4 +1,4 @@
-*token
+token.json
 *.idea
 *__pycache__/
-*data/
+data

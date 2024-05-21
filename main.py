@@ -1,5 +1,6 @@
 from bot import TgBot
 from sqlite3 import connect, Connection, Cursor
+import json
 
 
 def main() -> None:
@@ -10,8 +11,8 @@ def main() -> None:
 
     :return: None
     """
-    with open('token', 'r') as file:
-        token: str = file.read()
+    with open('token.json', 'r') as file:
+        data: dict = json.load(file)
 
     db: Connection = connect('data/users.db')
     cursor: Cursor = db.cursor()
@@ -24,7 +25,7 @@ def main() -> None:
     cursor.close()
     db.close()
 
-    bot: TgBot = TgBot(token)
+    bot: TgBot = TgBot(data["token"])
     bot.run()
 
 
